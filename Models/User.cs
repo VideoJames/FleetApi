@@ -10,5 +10,7 @@ namespace WorkflowApi.Models
 
         [Timestamp]
         public byte[] RowVersion { get; set; } = default;
+
+        public ICollection<DeviceReading> DeviceReadings { get; set; } = new List<DeviceReading>();
     }
 }
