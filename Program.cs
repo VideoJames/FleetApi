@@ -7,6 +7,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using WorkflowApi.Validators;
 using WorkflowApi.Repositories;
+using WorkflowApi.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +20,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.AddMaps(typeof(UserProfile).Assembly);
+});
 builder.Services.AddValidatorsFromAssemblyContaining<UserCreateDtoValidator>();
 builder.Services.AddValidatorsFromAssemblyContaining<UserUpdateDtoValidator>();
 builder.Services.AddFluentValidationAutoValidation();
